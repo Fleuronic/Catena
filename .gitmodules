@@ -1,0 +1,6 @@
+[submodule "Catenoid"]
+	path = Submodules/Catenoid
+	url = https://github.com/Fleuronic/Catenoid
+[submodule "Catenary"]
+	path = Submodules/Catenary
+	url = https://github.com/Fleuronic/Catenary
