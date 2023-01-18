@@ -1,8 +1,9 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-import Schemata
-import PersistDB
 import struct Foundation.UUID
+import struct Schemata.Value
+import protocol Schemata.ModelValue
+import protocol Schemata.AnyModelValue
 import protocol Identity.Identifiable
 import struct Identity.Identifier
 
