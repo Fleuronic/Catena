@@ -5,7 +5,6 @@ import PersistDB
 
 public protocol Model: PersistDB.Model, Valued where Self == Model {
 	static var idKeyPath: KeyPath<Self, ID> { get }
-	static var tableName: String { get }
 }
 
 public extension Model {
