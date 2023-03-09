@@ -1,10 +1,8 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-import struct Foundation.UUID
-import struct Identity.Identifier
-import struct Schemata.Value
-import protocol Schemata.ModelValue
-import protocol Schemata.AnyModelValue
+import Foundation
+import Identity
+import Schemata
 
 extension Identifier: AnyModelValue where Value.RawIdentifier == UUID {}
 

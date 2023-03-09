@@ -1,7 +1,7 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-import struct Schemata.Projection
-import protocol PersistDB.ModelProjection
+import Schemata
+import PersistDB
 
 public protocol Fields: PersistDB.ModelProjection, Decodable where Model: Catena.Model {
 	var id: Model.ID { get }
