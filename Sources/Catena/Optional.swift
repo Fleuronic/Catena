@@ -1,11 +1,17 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
 public extension Optional {
-    func asyncMapNil(defaultValue: () async throws -> Wrapped) async rethrows -> Wrapped {
+    func asyncMap<T>(transform: (Wrapped) async -> T) async -> T? {
+        if let result = self {
+            return await transform(result)
+        }
+        return nil
+    }
+
+    func asyncMapNil(defaultValue: () async -> Wrapped) async -> Wrapped {
         if let result = self {
             return result
-        } else {
-            return try await defaultValue()
         }
+        return await defaultValue()
     }
 }
