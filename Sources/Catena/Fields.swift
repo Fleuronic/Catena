@@ -3,7 +3,7 @@
 import Schemata
 import PersistDB
 
-public protocol Fields: PersistDB.ModelProjection, Decodable where Model: Catena.Model {
+public protocol Fields: Swift.Identifiable, Decodable, PersistDB.ModelProjection where Model: Catena.Model {
 	var id: Model.ID { get }
 }
 
