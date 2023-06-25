@@ -8,6 +8,13 @@ public extension Optional {
         return nil
     }
 
+	func asyncFlatMap<T>(transform: (Wrapped) async -> T?) async -> T? {
+		if let result = self {
+			return await transform(result)
+		}
+		return nil
+	}
+
     func asyncMapNil(defaultValue: () async -> Wrapped) async -> Wrapped {
         if let result = self {
             return result
