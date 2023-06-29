@@ -4,7 +4,11 @@ import Schemata
 import PersistDB
 
 public protocol Fields: Swift.Identifiable, Decodable, PersistDB.ModelProjection where Model: Catena.Model {
-	var id: Model.ID { get }
+	static var toManyKeys: [PartialKeyPath<Model>: [String]] { get }
+}
+
+public extension Fields {
+	static var toManyKeys: [PartialKeyPath<Model>: [String]] { [:] }
 }
 
 // MARK: -
