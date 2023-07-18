@@ -24,7 +24,7 @@
       "location" : "https://github.com/Fleuronic/PersistDB",
       "state" : {
         "branch" : "master",
-        "revision" : "28cc0b1e23b06d3dd4b77bf4992c073681218dc6"
+        "revision" : "d4b550cb11f2abad400431d308291974cd14a6b9"
       }
     },
     {
@@ -42,7 +42,7 @@
       "location" : "https://github.com/Fleuronic/Schemata",
       "state" : {
         "branch" : "master",
-        "revision" : "781162892f5f9da4a155a25dc47ff948e26b3960"
+        "revision" : "32be7bd5f65405678257aeee76859b03cffb89e7"
       }
     }
   ],
