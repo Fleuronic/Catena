@@ -14,6 +14,10 @@ public extension Fields {
 // MARK: -
 public struct IDFields<Model: Catena.Model> {
 	public let id: Model.ID
+
+	public init(id: Model.ID) {
+		self.id = id
+	}
 }
 
 // MARK: -
