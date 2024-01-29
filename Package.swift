@@ -20,7 +20,9 @@ let package = Package(
 	dependencies: [
 		.package(url: "https://github.com/JohnSundell/Identity", from: "0.1.0"),
 		.package(url: "https://github.com/Fleuronic/Schemata", branch: "master"),
-		.package(url: "https://github.com/Fleuronic/PersistDB", branch: "master")
+		.package(url: "https://github.com/Fleuronic/PersistDB", branch: "master"),
+		.package(url: "https://github.com/LeonardoCardoso/InitMacro.git", branch: "main")
+
 	],
 	targets: [
 		.target(
@@ -28,7 +30,8 @@ let package = Package(
 			dependencies: [
 				"Identity",
 				"Schemata",
-				"PersistDB"
+				"PersistDB",
+				"InitMacro"
 			]
 		)
 	]

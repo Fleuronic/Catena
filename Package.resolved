@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "initmacro",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/LeonardoCardoso/InitMacro.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6b1488c4b540c70e1952dd2ece985dbe266e8964"
+      }
+    },
+    {
       "identity" : "persistdb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Fleuronic/PersistDB",
@@ -43,6 +52,15 @@
       "state" : {
         "branch" : "master",
         "revision" : "0f0669c9f8bab8769c2710f5d3a91de95a2533d6"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax",
+      "state" : {
+        "revision" : "74203046135342e4a4a627476dd6caf8b28fe11b",
+        "version" : "509.0.0"
       }
     }
   ],
