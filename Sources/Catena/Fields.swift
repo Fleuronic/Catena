@@ -1,7 +1,10 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-import Schemata
-import PersistDB
+import InitMacro
+
+import struct Schemata.Projection
+import protocol Schemata.Model
+import protocol PersistDB.ModelProjection
 
 public protocol Fields: Swift.Identifiable, Decodable, PersistDB.ModelProjection where Model: Catena.Model {
 	static var toManyKeys: [PartialKeyPath<Model>: [String]] { get }
@@ -12,12 +15,8 @@ public extension Fields {
 }
 
 // MARK: -
-public struct IDFields<Model: Catena.Model> {
+@Init public struct IDFields<Model: Catena.Model> {
 	public let id: Model.ID
-
-	public init(id: Model.ID) {
-		self.id = id
-	}
 }
 
 // MARK: -
