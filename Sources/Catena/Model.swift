@@ -2,7 +2,9 @@
 
 import PersistDB
 
-public protocol Model: PersistDB.Model where ID: Decodable {
+import protocol Identity.Identifiable
+
+public protocol Model: PersistDB.Model, Identity.Identifiable {
 	var valueSet: ValueSet<Self> { get }
 
 	static var queryName: String { get }

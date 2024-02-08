@@ -5,8 +5,9 @@ import InitMacro
 import struct Schemata.Projection
 import protocol Schemata.Model
 import protocol PersistDB.ModelProjection
+import protocol Identity.Identifiable
 
-public protocol Fields: Swift.Identifiable, Decodable, PersistDB.ModelProjection where Model: Catena.Model {
+public protocol Fields: ModelProjection, Decodable where Model: Catena.Model {
 	static var toManyKeys: [PartialKeyPath<Model>: [String]] { get }
 }
 
@@ -20,8 +21,6 @@ public extension Fields {
 }
 
 // MARK: -
-extension IDFields: Decodable {}
-
 extension IDFields: Fields {
 	// MARK: ModelProjection
 	public static var projection: Projection<Model, Self> {
