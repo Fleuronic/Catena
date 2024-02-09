@@ -4,7 +4,7 @@ import PersistDB
 
 import protocol Identity.Identifiable
 
-public protocol Model: PersistDB.Model, Identity.Identifiable {
+public protocol Model: PersistDB.Model, Identity.Identifiable where ID: Decodable {
 	var valueSet: ValueSet<Self> { get }
 
 	static var queryName: String { get }
@@ -12,14 +12,6 @@ public protocol Model: PersistDB.Model, Identity.Identifiable {
 
 // MARK: -
 public extension Model {
-	var identifiedValueSet: ValueSet<Self> {
-		valueSet.update(with: [Self.idKeyPath == id])
-	}
-
-	static var defaultOrder: [Ordering<Self>] {
-		[.init(idKeyPath, ascending: true)]
-	}
-
 	// MARK: Model
 	static var queryName: String {
 		.init(schema.name.dropLast())
