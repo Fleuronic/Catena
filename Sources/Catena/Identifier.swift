@@ -16,7 +16,7 @@ extension Identifier: AnyModelValue where Value.RawIdentifier: ModelValue & Stri
 	public static var anyValue: AnyValue {
 		.init(
 			String.value.bimap(
-				decode: Value.RawIdentifier.encode,
+				decode: { Self(rawValue: Value.RawIdentifier.encode(with: $0)) },
 				encode: \.description
 			)
 		)
