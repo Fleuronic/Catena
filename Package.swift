@@ -22,7 +22,6 @@ let package = Package(
 		.package(url: "https://github.com/Fleuronic/Schemata", branch: "master"),
 		.package(url: "https://github.com/Fleuronic/PersistDB", branch: "master"),
 		.package(url: "https://github.com/LeonardoCardoso/InitMacro.git", branch: "main")
-
 	],
 	targets: [
 		.target(
