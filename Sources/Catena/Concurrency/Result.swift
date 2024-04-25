@@ -1,7 +1,7 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
 public extension Result {
-	func asyncMap<NewSuccess>(_ transform: (Success) async -> NewSuccess) async -> Result<NewSuccess, Failure> {
+	func asyncMap<T>(_ transform: (Success) async -> T) async -> Result<T, Failure> {
 		switch self {
 		case let .success(value):
 			.success(await transform(value))
@@ -10,7 +10,7 @@ public extension Result {
 		}
 	}
 
-	func asyncFlatMap<NewSuccess>(_ transform: (Success) async -> Result<NewSuccess, Failure>) async -> Result<NewSuccess, Failure> {
+	func asyncFlatMap<T>(_ transform: (Success) async -> Result<T, Failure>) async -> Result<T, Failure> {
 		switch self {
 		case let .success(value):
 			await transform(value)
