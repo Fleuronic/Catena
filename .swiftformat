@@ -6,3 +6,4 @@
 --indent tab
 --tabwidth 4
 --stripunusedargs closure-only
+--trimwhitespace nonblank-lines

@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "differ",
+      "identity" : "dictionarycoder",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tonyarnold/Differ.git",
+      "location" : "https://github.com/almazrafi/DictionaryCoder.git",
       "state" : {
-        "revision" : "5520fda947f1f9777a806389c2ba587219bc0538",
-        "version" : "1.4.6"
+        "revision" : "ebcbaeb20ca5f62ed0365fa7f0473e0d480b931e",
+        "version" : "1.2.0"
       }
     },
     {
@@ -25,33 +25,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "6b1488c4b540c70e1952dd2ece985dbe266e8964"
-      }
-    },
-    {
-      "identity" : "persistdb",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Fleuronic/PersistDB",
-      "state" : {
-        "branch" : "master",
-        "revision" : "edc45a9c1a217c6640af2b8b1f2a2bc538997641"
-      }
-    },
-    {
-      "identity" : "reactiveswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ReactiveCocoa/ReactiveSwift.git",
-      "state" : {
-        "branch" : "swift-concurrency",
-        "revision" : "3d40187c982346352d0adbe6b38e0e3d53fddc95"
-      }
-    },
-    {
-      "identity" : "schemata",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Fleuronic/Schemata",
-      "state" : {
-        "branch" : "master",
-        "revision" : "0f0669c9f8bab8769c2710f5d3a91de95a2533d6"
       }
     },
     {
