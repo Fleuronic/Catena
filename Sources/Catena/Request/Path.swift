@@ -14,7 +14,7 @@ public prefix func /(component: CustomStringConvertible?) -> PathComponent? {
 	(component?.description).map(StringPathComponent.init)
 }
 
-public prefix func /<T: RawRepresentable>(component: T?) -> PathComponent where T.RawValue == String {
+public prefix func /<T: RawRepresentable>(component: T?) -> PathComponent? where T.RawValue == String {
 	(component?.rawValue).map(StringPathComponent.init)
 }
 
