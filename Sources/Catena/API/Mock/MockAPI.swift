@@ -4,8 +4,8 @@ import struct Foundation.TimeInterval
 import class Foundation.JSONSerialization
 
 public protocol MockAPI {
-	func mockJSONObject(path: String, method: String) -> [String: Any]?
-	func mockResource<Resource: Decodable, Error>(path: String, method: String) -> Result<Resource, Request.Error<Error>>?
+	func mockJSONObject(path: String, method: Request.Method) -> [String: Any]?
+	func mockResource<Resource: Decodable, Error>(path: String, method: Request.Method) -> Result<Resource, Request.Error<Error>>?
 }
 
 // MARK: -
@@ -21,7 +21,7 @@ public extension MockAPI {
 
 // MARK: -
 extension REST.API {
-	func mockResource<Resource: Decodable>(path: String, method: String) async throws -> Result<Resource>? {
+	func mockResource<Resource: Decodable>(path: String, method: Request.Method) async throws -> Result<Resource>? {
 		guard let mockAPI = self as? MockAPI else { return nil }
 		
 		await mockAPI.fakeActivity()

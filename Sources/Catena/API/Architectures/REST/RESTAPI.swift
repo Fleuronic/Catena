@@ -1,5 +1,7 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
+import MultipartFormData
+
 import struct Foundation.Data
 import struct Foundation.URL
 import struct Foundation.URLRequest
@@ -14,71 +16,72 @@ public extension REST {
 
 // MARK: -
 public extension REST.API {
-	func getResource(at path: String, with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
+	func getResource(atPath path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
 		let result: Result<EmptyResource> = await resource(
 			path: path,
-			method: "GET",
-			parameters: parameters
+			method: .get,
+			parameters: parameters,
+			payload: EmptyPayload()
 		)
 		
 		return result.map { _ in }
 	}
 
-	func getResource<Resource: Decodable>(at path: String, with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
+	func getResource<Resource: Decodable>(at path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
 		await resource(
 			path: path,
-			method: "GET",
-			parameters: parameters
+			method: .get,
+			parameters: parameters,
+			payload: EmptyPayload()
 		)
 	}
 
-	func post(_ payload: some Payload, to path: String, with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
+	func post(_ payload: some Payload, to path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
 		let result: Result<EmptyResource> = await self.resource(
 			path: path,
-			method: "POST",
+			method: .post,
 			parameters: parameters,
-			body: payload.data(using: encoder)
+			payload: payload
 		)
 		
 		return result.map { _ in }
 	}
 
-	func post<Resource: Decodable>(_ payload: some Payload, to path: String, with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
+	func post<Resource: Decodable>(_ payload: some Payload, to path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
 		await self.resource(
 			path: path,
-			method: "POST",
+			method: .post,
 			parameters: parameters,
-			body: payload.data(using: encoder)
+			payload: payload
 		)
 	}
 
-	func put(_ payload: some Payload = EmptyPayload(), at path: String, with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
-		// TODO
+	func put(_ payload: some Payload = EmptyPayload(), at path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
 		let result: Result<EmptyResource> = await resource(
 			path: path,
-			method: "PUT",
+			method: .put,
 			parameters: parameters,
-			body: payload.data(using: encoder)
+			payload: payload
 		)
 		
 		return result.map { _ in }
 	}
 
-	func put<Resource: Decodable>(_ payload: some Payload = EmptyPayload(), at path: String, with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
+	func put<Resource: Decodable>(_ payload: some Payload = EmptyPayload(), at path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
 		await resource(
 			path: path,
-			method: "PUT",
+			method: .put,
 			parameters: parameters,
-			body: payload.data(using: encoder)
+			payload: payload
 		)
 	}
 
-	func deleteResource(at path: String, using payload: some Payload = EmptyPayload(), with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
+	func deleteResource(at path: PathComponent..., using payload: some Payload = EmptyPayload(), with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
 		let result: Result<EmptyResource> = await resource(
 			path: path,
-			method: "DELETE",
+			method: .delete,
 			parameters: parameters,
-			body: payload.data(using: encoder)
+			payload: payload
 		)
 		
 		return result.map { _ in }
@@ -101,34 +104,28 @@ extension REST.API {
 // MARK: -
 private extension REST.API {
 	func resource<Resource: Decodable>(
-		path: String,
-		method: String,
+		path: [PathComponent],
+		method: Request.Method,
 		parameters: some Parameters,
-		body: Data? = nil
+		payload: some Payload
 	) async -> Result<Resource> {
 		do {
+			let path = path.map(\.rawValue).joined(separator: "/")
 			if let resource: Result<Resource> = try await mockResource(path: path, method: method) {
 				return resource
 			}
-			
-			let url = url(for: path)
-			var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-			
-			let queryItems = try parameters.queryItems
-			if !queryItems.isEmpty {
-				components.queryItems = queryItems
-			}
-			
-			var urlRequest = URLRequest(url: components.url!)
-			urlRequest.httpMethod = method
-			urlRequest.httpBody = body
-			authenticationHeader.map { urlRequest.apply($0) }
-			
-			if body != nil {
-				urlRequest.apply(.jsonContentType)
-			}
-			
-			let (data, urlResponse) = try await URLSession.shared.data(for: urlRequest)
+
+			let (data, urlResponse) = try await URLSession.shared.data(
+				for: urlRequest(
+					method: method,
+					body: payload.data(using: encoder),
+					components: try components(
+						url: url(for: path),
+						parameters: parameters
+					)
+				)
+			)
+
 			return try .success(
 				resource(
 					data: data,
@@ -143,6 +140,32 @@ private extension REST.API {
 			return .failure(.network(error))
 		}
 	}
+
+	func components(
+		url: URL,
+		parameters: some Parameters
+	) throws -> URLComponents {
+		let queryItems = try parameters.queryItems
+		var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+
+		if !queryItems.isEmpty { components.queryItems = queryItems }
+		return components
+	}
+
+	func urlRequest(
+		method: Request.Method,
+		body: Data?,
+		components: URLComponents
+	) -> URLRequest {
+		var urlRequest = URLRequest(url: components.url!)
+		urlRequest.httpMethod = method.value
+		urlRequest.httpBody = body
+		
+		authenticationHeader.map { urlRequest.apply($0) }
+		body.map { _ in urlRequest.apply(.jsonContentType) }
+		return urlRequest
+	}
 }
 
+// MARK: -
 private struct EmptyResource: Decodable {}
