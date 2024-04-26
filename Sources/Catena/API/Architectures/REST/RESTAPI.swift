@@ -1,7 +1,5 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-import MultipartFormData
-
 import struct Foundation.Data
 import struct Foundation.URL
 import struct Foundation.URLRequest
@@ -42,7 +40,8 @@ public extension REST.API {
 
 	func post(
 		_ path: PathComponent?...,
-		payload: () -> Payload?, 
+		payload: () -> Payload? = { nil },
+		upload: () -> Upload? = { nil },
 		parameters: () -> Parameters? = { nil }
 	) async -> Result<Void> {
 		let result: Result<EmptyResource> = await self.resource(
@@ -57,7 +56,8 @@ public extension REST.API {
 
 	func post<Resource: Decodable>(
 		_ path: PathComponent?..., 
-		payload: () -> Payload?, 
+		payload: () -> Payload? = { nil },
+		upload: () -> Upload? = { nil },
 		parameters: () -> Parameters? = { nil }
 	) async -> Result<Resource> {
 		await self.resource(
@@ -181,8 +181,10 @@ private extension REST.API {
 		url: URL,
 		payload: Payload?,
 		upload: Upload?
-	) -> URLRequest {
-		var urlRequest = URLRequest(url: url)
+	) throws -> URLRequest {
+		var urlRequest = try upload.map { upload in
+			try URLRequest(url: url, multipartFormData: upload.data)
+		} ?? URLRequest(url: url)
 
 		let body = payload?.data(using: encoder)
 		urlRequest.httpMethod = method.value
