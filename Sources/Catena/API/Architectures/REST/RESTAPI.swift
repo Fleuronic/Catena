@@ -16,72 +16,61 @@ public extension REST {
 
 // MARK: -
 public extension REST.API {
-	func getResource(atPath path: PathComponent?..., with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
+	func getResource(atPath path: PathComponent?..., with parameters: () -> Parameters = { EmptyParameters() }) async -> Result<Void> {
 		let result: Result<EmptyResource> = await resource(
 			path: path,
 			method: .get,
-			parameters: parameters,
+			parameters: parameters(),
 			payload: EmptyPayload()
 		)
-		
+
 		return result.map { _ in }
 	}
 
-	func getResource<Resource: Decodable>(atPath path: PathComponent?..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
+	func getResource<Resource: Decodable>(atPath path: PathComponent?..., with parameters: () -> Parameters = { EmptyParameters() }) async -> Result<Resource> {
 		await resource(
 			path: path,
 			method: .get,
-			parameters: parameters,
+			parameters: parameters(),
 			payload: EmptyPayload()
 		)
 	}
 
-	func post(_ payload: some Payload, toPath path: PathComponent?..., with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
-		let result: Result<EmptyResource> = await self.resource(
-			path: path,
-			method: .post,
-			parameters: parameters,
-			payload: payload
-		)
-		
-		return result.map { _ in }
-	}
-
-	func post<Resource: Decodable>(_ payload: some Payload, toPath path: PathComponent?..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
+	func post<Resource: Decodable>(toPath path: PathComponent?..., with parameters: () -> Parameters = { EmptyParameters() }, using payload: () -> Payload) async -> Result<Resource> {
 		await self.resource(
 			path: path,
 			method: .post,
-			parameters: parameters,
-			payload: payload
+			parameters: parameters(),
+			payload: payload()
 		)
 	}
 
-	func put(_ payload: some Payload = EmptyPayload(), atPath path: PathComponent?..., with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
+	func put(atPath path: PathComponent?..., with parameters: () -> Parameters = { EmptyParameters() }, using payload: () -> Payload = { EmptyPayload() }) async -> Result<Void> {
 		let result: Result<EmptyResource> = await resource(
 			path: path,
 			method: .put,
-			parameters: parameters,
-			payload: payload
+			parameters: parameters(),
+			payload: payload()
 		)
-		
+
 		return result.map { _ in }
 	}
 
-	func put<Resource: Decodable>(_ payload: some Payload = EmptyPayload(), atPath path: PathComponent?..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
+	func put<Resource: Decodable>(atPath path: PathComponent?..., with parameters: () -> Parameters = { EmptyParameters() }, using payload: () -> Payload = { EmptyPayload() }) async -> Result<Resource> {
 		await resource(
 			path: path,
 			method: .put,
-			parameters: parameters,
-			payload: payload
+			parameters: parameters(),
+			payload: payload()
 		)
 	}
 
-	func deleteResource(atPath path: PathComponent?..., using payload: some Payload = EmptyPayload(), with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
+	func deleteResource(atPath path: PathComponent?..., with parameters: () -> Parameters = { EmptyParameters() }, using payload: () -> Payload = { EmptyPayload() }) async -> Result<Void> {
 		let result: Result<EmptyResource> = await resource(
 			path: path,
 			method: .delete,
-			parameters: parameters,
-			payload: payload
+			parameters: parameters(),
+			payload: payload()
 		)
 		
 		return result.map { _ in }
@@ -106,8 +95,8 @@ private extension REST.API {
 	func resource<Resource: Decodable>(
 		path: [PathComponent?],
 		method: Request.Method,
-		parameters: some Parameters,
-		payload: some Payload
+		parameters: Parameters,
+		payload: Payload
 	) async -> Result<Resource> {
 		do {
 			let path = path.compactMap(\.?.rawValue).joined(separator: "/")
@@ -143,7 +132,7 @@ private extension REST.API {
 
 	func components(
 		url: URL,
-		parameters: some Parameters
+		parameters: Parameters
 	) throws -> URLComponents {
 		let queryItems = try parameters.queryItems
 		var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
