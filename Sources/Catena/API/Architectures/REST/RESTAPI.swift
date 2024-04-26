@@ -27,7 +27,7 @@ public extension REST.API {
 		return result.map { _ in }
 	}
 
-	func getResource<Resource: Decodable>(at path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
+	func getResource<Resource: Decodable>(atPath path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
 		await resource(
 			path: path,
 			method: .get,
@@ -36,7 +36,7 @@ public extension REST.API {
 		)
 	}
 
-	func post(_ payload: some Payload, to path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
+	func post(_ payload: some Payload, toPath path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
 		let result: Result<EmptyResource> = await self.resource(
 			path: path,
 			method: .post,
@@ -47,7 +47,7 @@ public extension REST.API {
 		return result.map { _ in }
 	}
 
-	func post<Resource: Decodable>(_ payload: some Payload, to path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
+	func post<Resource: Decodable>(_ payload: some Payload, toPath path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
 		await self.resource(
 			path: path,
 			method: .post,
@@ -56,7 +56,7 @@ public extension REST.API {
 		)
 	}
 
-	func put(_ payload: some Payload = EmptyPayload(), at path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
+	func put(_ payload: some Payload = EmptyPayload(), atPath path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
 		let result: Result<EmptyResource> = await resource(
 			path: path,
 			method: .put,
@@ -67,7 +67,7 @@ public extension REST.API {
 		return result.map { _ in }
 	}
 
-	func put<Resource: Decodable>(_ payload: some Payload = EmptyPayload(), at path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
+	func put<Resource: Decodable>(_ payload: some Payload = EmptyPayload(), atPath path: PathComponent..., with parameters: some Parameters = EmptyParameters()) async -> Result<Resource> {
 		await resource(
 			path: path,
 			method: .put,
@@ -76,7 +76,7 @@ public extension REST.API {
 		)
 	}
 
-	func deleteResource(at path: PathComponent..., using payload: some Payload = EmptyPayload(), with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
+	func deleteResource(atPath path: PathComponent..., using payload: some Payload = EmptyPayload(), with parameters: some Parameters = EmptyParameters()) async -> Result<Void> {
 		let result: Result<EmptyResource> = await resource(
 			path: path,
 			method: .delete,
