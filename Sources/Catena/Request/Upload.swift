@@ -10,7 +10,7 @@ import struct Foundation.Data
 	let file: URL
 	let name: String
 	let filename: String
-	
+
 	var data: MultipartFormData {
 		get throws {
 			try MultipartFormData(boundary: .init(uncheckedBoundary: "boundary")) {

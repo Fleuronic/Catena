@@ -11,7 +11,7 @@ extension Request {
 // MARK: -
 extension Request.Method {
 	static let get = Self(value: "GET")
-	static let put = Self(value: "POST")
-	static let post = Self(value: "PUT")
+	static let post = Self(value: "POST")
+	static let put = Self(value: "PUT")
 	static let delete = Self(value: "DELETE")
 }

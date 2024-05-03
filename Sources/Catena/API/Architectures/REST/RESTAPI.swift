@@ -48,7 +48,8 @@ public extension REST.API {
 			path: path,
 			method: .post,
 			parameters: parameters(),
-			payload: payload()
+			payload: payload(),
+			upload: upload()
 		)
 
 		return result.map { _ in }
@@ -64,7 +65,8 @@ public extension REST.API {
 			path: path,
 			method: .post,
 			parameters: parameters(),
-			payload: payload()
+			payload: payload(),
+			upload: upload()
 		)
 	}
 
@@ -140,8 +142,8 @@ private extension REST.API {
 				return resource
 			}
 
-			let (data, urlResponse) = try await URLSession.shared.data(
-				for: urlRequest(
+			let (data, response) = try await URLSession.shared.data(
+				for: request(
 					method: method,
 					url: try components(
 						url: url(for: path),
@@ -155,7 +157,7 @@ private extension REST.API {
 			return try .success(
 				resource(
 					data: data,
-					response: urlResponse as? HTTPURLResponse
+					response: response as? HTTPURLResponse
 				)
 			)
 		} catch let error as Error {
@@ -176,23 +178,25 @@ private extension REST.API {
 		return components
 	}
 
-	func urlRequest(
+	func request(
 		method: Request.Method,
 		url: URL,
 		payload: Payload?,
 		upload: Upload?
 	) throws -> URLRequest {
-		var urlRequest = try upload.map { upload in
-			try URLRequest(url: url, multipartFormData: upload.data)
-		} ?? URLRequest(url: url)
+		var request: URLRequest
 
-		let body = payload?.data(using: encoder)
-		urlRequest.httpMethod = method.value
-		urlRequest.httpBody = body
+		if let upload {
+			try request = URLRequest(url: url, multipartFormData: upload.data)
+		} else {
+			request = URLRequest(url: url)
+			request.httpBody = payload?.data(using: encoder)
+		}
 
-		authenticationHeader.map { urlRequest.apply($0) }
-		body.map { _ in urlRequest.apply(.jsonContentType) }
-		return urlRequest
+		authenticationHeader.map { request.apply($0) }
+		payload.map { _ in request.apply(.jsonContentType) }
+		request.httpMethod = method.value
+		return request
 	}
 }
 
