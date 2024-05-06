@@ -7,7 +7,7 @@ import struct Foundation.URL
 import struct Foundation.Data
 
 @Init public struct Upload {
-	let file: URL
+	let url: URL
 	let name: String
 	let filename: String
 
@@ -17,7 +17,7 @@ import struct Foundation.Data
 				try Subpart {
 					try ContentDisposition(uncheckedName: name, uncheckedFilename: filename)
 				} body: {
-					try Data(contentsOf: file)
+					try Data(contentsOf: url)
 				}
 			}
 		}
