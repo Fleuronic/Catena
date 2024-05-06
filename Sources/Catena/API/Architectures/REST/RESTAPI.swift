@@ -73,13 +73,15 @@ public extension REST.API {
 	func put(
 		_ path: PathComponent?...,
 		payload: () -> Payload? = { nil }, 
+		upload: () -> Upload? = { nil },
 		parameters: () -> Parameters? = { nil }
 	) async -> Result<Void> {
 		let result: Result<EmptyResource> = await resource(
 			path: path,
 			method: .put,
 			parameters: parameters(),
-			payload: payload()
+			payload: payload(),
+			upload: upload()
 		)
 
 		return result.map { _ in }
@@ -87,14 +89,16 @@ public extension REST.API {
 
 	func put<Resource: Decodable>(
 		_ path: PathComponent?...,
-		payload: () -> Payload? = { nil }, 
+		payload: () -> Payload? = { nil },
+		upload: () -> Upload? = { nil },
 		parameters: () -> Parameters? = { nil }
 	) async -> Result<Resource> {
 		await resource(
 			path: path,
 			method: .put,
 			parameters: parameters(),
-			payload: payload()
+			payload: payload(),
+			upload: upload()
 		)
 	}
 
