@@ -1,3 +1,5 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-public enum Request {}
+public protocol Fields {
+	associatedtype Model
+}
