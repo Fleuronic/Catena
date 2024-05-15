@@ -1,5 +1,7 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
+import class Foundation.NSError
+
 public enum Error<Error: Swift.Error & CustomStringConvertible>: Swift.Error {
 	case api(Error)
 	case decoding(DecodingError)
