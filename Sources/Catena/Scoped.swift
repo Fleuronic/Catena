@@ -1,13 +1,13 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
 public protocol Scoped {
-	associatedtype Fields
+	associatedtype ScopeFields: Fields
 }
 
 extension Result: Scoped where Success: Scoped {
-	public typealias Fields = Success.Fields
+	public typealias ScopeFields = Success.ScopeFields
 }
 
 extension Array: Scoped where Element: Scoped {
-	public typealias Fields = Element.Fields
+	public typealias ScopeFields = Element.ScopeFields
 }
