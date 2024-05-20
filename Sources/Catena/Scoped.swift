@@ -1,6 +1,6 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-public protocol Scoped {
+public protocol Scoped<Fields> {
 	associatedtype Fields: Catena.Fields
 }
 

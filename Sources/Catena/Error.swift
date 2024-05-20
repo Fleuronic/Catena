@@ -4,7 +4,7 @@ import class Foundation.NSError
 
 public enum Error<Error: Swift.Error & CustomStringConvertible>: Swift.Error {
 	case api(Error)
-	case undocumented(String)
+	case undocumented(message: String)
 	case decoding(DecodingError)
 	case network(NSError)
 }
@@ -20,8 +20,10 @@ public extension Error {
 			self = .network(error as NSError)
 		}
 	}
+}
 
-	var message: String {
+extension Error: CustomStringConvertible {
+	public var description: String {
 		switch self {
 		case let .api(error): error.description
 		case let .undocumented(message): message 
