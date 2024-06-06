@@ -12,7 +12,9 @@ public enum Error<Error: Swift.Error & CustomStringConvertible>: Swift.Error {
 // MARK: -
 public extension Error {
 	init(_ error: Swift.Error) {
-		if let error = error as? Error {
+		if let error = error as? Self {
+			self = error
+		} else if let error = error as? Error {
 			self = .api(error)
 		} else if let error = error as? DecodingError {
 			self = .decoding(error)
