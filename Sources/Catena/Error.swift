@@ -2,7 +2,7 @@
 
 import class Foundation.NSError
 
-public enum Error<Error: Swift.Error & CustomStringConvertible>: Swift.Error {
+public enum Error<Error: Swift.Error & Equatable & CustomStringConvertible>: Swift.Error & Equatable {
 	case api(Error)
 	case undocumented(message: String)
 	case decoding(DecodingError)
@@ -21,6 +21,12 @@ public extension Error {
 		} else {
 			self = .network(error as NSError)
 		}
+	}
+}
+
+extension DecodingError: Equatable {
+	public static func ==(lhs: Self, rhs: Self) -> Bool {
+		lhs.errorDescription == rhs.errorDescription
 	}
 }
 
