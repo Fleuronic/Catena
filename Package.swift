@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:6.0
 // Copyright © Fleuronic LLC. All rights reserved.
 
 import PackageDescription
@@ -18,6 +18,9 @@ let package = Package(
 		)
 	],
 	targets: [
-		.target(name: "Catena")
-	]
+		.target(
+			name: "Catena"
+		)
+	],
+	swiftLanguageVersions: [.v6]
 )

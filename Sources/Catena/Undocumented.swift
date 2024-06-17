@@ -1,6 +1,6 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-public enum Undocumented<Field> {
+public enum Undocumented<Field: Sendable>: Sendable {
 	case present(Field)
 	case missing
 }
@@ -21,7 +21,7 @@ public extension Undocumented {
 	}
 }
 
-public extension Optional {
+public extension Optional where Wrapped: Sendable {
 	var undocumented: Undocumented<Wrapped> {
 		map(Undocumented.present) ?? .missing
 	}
