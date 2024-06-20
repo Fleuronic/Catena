@@ -1,0 +1,2 @@
+public protocol Database: Sendable {}
+
