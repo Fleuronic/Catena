@@ -4,6 +4,6 @@ import InitMacro
 
 import protocol Identity.Identifiable
 
-@Init public struct IDFields<Model: Identifiable>: Fields, Hashable where Model.ID: Hashable {
+@Init public struct IDFields<Model: Identifiable>: Fields, Hashable where Model.ID: Hashable & Sendable {
 	public let id: Model.ID
 }
