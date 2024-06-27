@@ -1,0 +1,33 @@
+{
+  "originHash" : "d94dfea314ff71948e1bfa3445be0bce4a902f55937e92829288f8e26ea3d7e3",
+  "pins" : [
+    {
+      "identity" : "identity",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Fleuronic/Identity",
+      "state" : {
+        "branch" : "master",
+        "revision" : "3dedc8db072d496a3b234fb0c452b97b987bf4c2"
+      }
+    },
+    {
+      "identity" : "initmacro",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Fleuronic/InitMacro.git",
+      "state" : {
+        "branch" : "update-swift-syntax",
+        "revision" : "d7010e57d835c41bd75fcb6a7553f3faad9384f0"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax",
+      "state" : {
+        "revision" : "08a2f0a9a30e0f705f79c9cfaca1f68b71bdc775",
+        "version" : "510.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}
