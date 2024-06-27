@@ -17,9 +17,17 @@ let package = Package(
 			targets: ["Catena"]
 		)
 	],
+	dependencies: [
+		.package(url: "https://github.com/Fleuronic/Identity", branch: "master"),
+		.package(url: "https://github.com/Fleuronic/InitMacro.git", branch: "update-swift-syntax")
+	],
 	targets: [
 		.target(
-			name: "Catena"
+			name: "Catena",
+			dependencies: [
+				"Identity",
+				"InitMacro"
+			]
 		)
 	]
 )
