@@ -19,7 +19,7 @@ let package = Package(
 	],
 	dependencies: [
 		.package(url: "https://github.com/Fleuronic/Identity", branch: "master"),
-		.package(url: "https://github.com/Fleuronic/InitMacro.git", branch: "update-swift-syntax")
+		.package(url: "https://github.com/Fleuronic/InitMacro.git", branch: "main")
 	],
 	targets: [
 		.target(
