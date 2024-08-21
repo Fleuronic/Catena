@@ -1,5 +1,5 @@
 
 
 public protocol Valued<Value> {
-	associatedtype Value
+	associatedtype Value = Self
 }
