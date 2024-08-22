@@ -1,5 +1,5 @@
 {
-  "originHash" : "e9c7ba24080c07b38ff522b0fc8f7d0de623bf68ddd5ddeb928b12aa3e401fde",
+  "originHash" : "0e52f22741970ddc82a028b16e84348641bb050652de7d85a1a384c867785323",
   "pins" : [
     {
       "identity" : "identity",
@@ -7,7 +7,7 @@
       "location" : "https://github.com/Fleuronic/Identity",
       "state" : {
         "branch" : "master",
-        "revision" : "3dedc8db072d496a3b234fb0c452b97b987bf4c2"
+        "revision" : "152f96ff2f828c56363d7ab089b81c80b6cbf1ca"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://github.com/Fleuronic/InitMacro.git",
       "state" : {
         "branch" : "main",
-        "revision" : "9b6feb35607a229194a7c28136d020f6b8ba3238"
+        "revision" : "323cda3658117d4c58d597908365ab5dcb939d2e"
       }
     },
     {
