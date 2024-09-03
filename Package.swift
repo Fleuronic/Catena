@@ -19,14 +19,14 @@ let package = Package(
 	],
 	dependencies: [
 		.package(url: "https://github.com/Fleuronic/Identity", branch: "master"),
-		.package(url: "https://github.com/Fleuronic/InitMacro.git", branch: "main")
+		.package(url: "https://github.com/gohanlon/swift-memberwise-init-macro", from: "0.5.0")
 	],
 	targets: [
 		.target(
 			name: "Catena",
 			dependencies: [
 				"Identity",
-				"InitMacro"
+				.product(name: "MemberwiseInit", package: "swift-memberwise-init-macro")
 			]
 		)
 	]
