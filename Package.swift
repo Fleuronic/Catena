@@ -17,17 +17,11 @@ let package = Package(
 			targets: ["Catena"]
 		)
 	],
-	dependencies: [
-		.package(url: "https://github.com/Fleuronic/Identity", branch: "master"),
-		.package(url: "https://github.com/gohanlon/swift-memberwise-init-macro", from: "0.5.0")
-	],
+	dependencies: [.package(url: "https://github.com/Fleuronic/Identity", branch: "master")],
 	targets: [
 		.target(
 			name: "Catena",
-			dependencies: [
-				"Identity",
-				.product(name: "MemberwiseInit", package: "swift-memberwise-init-macro")
-			]
+			dependencies: ["Identity"]
 		)
 	]
 )
