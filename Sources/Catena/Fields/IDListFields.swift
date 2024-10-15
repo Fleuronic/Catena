@@ -1,6 +1,6 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-import protocol Identity.Identifiable
+public import protocol Identity.Identifiable
 
 public struct IDListFields<Model: Identifiable & Sendable>: Fields, Sendable where Model.ID: Sendable {
 	public let ids: [Model.ID]
