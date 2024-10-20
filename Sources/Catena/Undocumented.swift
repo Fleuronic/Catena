@@ -8,15 +8,15 @@ public enum Undocumented<Field: Sendable>: Sendable {
 public extension Undocumented {
 	var precheckedValue: Field {
 		switch self {
-		case let .present(field): field
+		case let .present(field): return field
 		default: fatalError()
 		}
 	}
 
 	var isMissing: Bool {
 		switch self {
-		case .missing: true
-		default: false
+		case .missing: return true
+		default: return false
 		}
 	}
 }

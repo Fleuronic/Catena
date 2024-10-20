@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "identity",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Fleuronic/Identity",
+      "state" : {
+        "branch" : "master",
+        "revision" : "511c8584d7c0bed3da607156a4d643fd44ca4368"
+      }
+    }
+  ],
+  "version" : 2
+}
