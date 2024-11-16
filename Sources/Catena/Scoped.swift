@@ -11,3 +11,7 @@ extension Result: Scoped where Success: Scoped {
 extension Array: Scoped where Element: Scoped {
 	public typealias Fields = Element.Fields
 }
+
+extension Optional: Scoped where Wrapped: Scoped {
+	public typealias Fields = Wrapped.Fields
+}
