@@ -9,18 +9,34 @@ public protocol ResultProviding {
 	typealias NoResult = Result<Void, Error>
 }
 
+// MARK: -
 public extension Result {
 	func map<NewSuccess>(_ transform: (Success) async -> NewSuccess) async -> Result<NewSuccess, Failure> {
 		switch self {
-		case let .success(value): return .success(await transform(value))
-		case let .failure(error): return .failure(error)
+		case let .success(value): await .success(transform(value))
+		case let .failure(error): .failure(error)
 		}
 	}
 
 	func flatMap<NewSuccess>(_ transform: (Success) async -> Result<NewSuccess, Failure>) async -> Result<NewSuccess, Failure> {
 		switch self {
-		case let .success(value): return await transform(value)
-		case let .failure(error): return .failure(error)
+		case let .success(value): await transform(value)
+		case let .failure(error): .failure(error)
+		}
+	}
+}
+
+public extension Result where Success: Nullable {
+	func flatMapNil(_ transform: () async -> Result<Success.Wrapped, Failure>) async -> Result<Success.Wrapped, Failure> {
+		switch self {
+		case let .success(value):
+			if let wrapped = value.wrapped {
+				.success(wrapped)
+			} else {
+				await transform()
+			}
+		case let .failure(error):
+			.failure(error)
 		}
 	}
 }
