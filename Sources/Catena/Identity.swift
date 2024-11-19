@@ -1,9 +1,15 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
+import struct Identity.Identifier
 import protocol Identity.Identifiable
 
 public protocol Identifying<Model> {
 	associatedtype Model: Identifiable
+}
+
+// MARK: -
+extension Identifier: Catena.Identifying {
+	public typealias Model = Value
 }
 
 // MARK: -

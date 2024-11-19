@@ -5,12 +5,18 @@ public protocol ResultProviding {
 
 	typealias Results<Resource> = Result<[Resource], Error>
 	typealias SingleResult<Resource> = Result<Resource, Error>
-	typealias ImpossibleResult = Never
 	typealias NoResult = Result<Void, Error>
 }
 
 // MARK: -
 public extension Result {
+	func `try`(_ action: (Success) async -> Void) async throws {
+		switch self {
+		case let .success(value): await action(value)
+		case let .failure(error): throw error
+		}
+	}
+
 	func map<NewSuccess>(_ transform: (Success) async -> NewSuccess) async -> Result<NewSuccess, Failure> {
 		switch self {
 		case let .success(value): await .success(transform(value))
@@ -27,6 +33,19 @@ public extension Result {
 }
 
 public extension Result where Success: Nullable {
+	func mapNil(_ transform: () async -> Success.Wrapped) async -> Result<Success.Wrapped, Failure> {
+		switch self {
+		case let .success(value):
+			if let wrapped = value.wrapped {
+				.success(wrapped)
+			} else {
+				await .success(transform())
+			}
+		case let .failure(error):
+			.failure(error)
+		}
+	}
+
 	func flatMapNil(_ transform: () async -> Result<Success.Wrapped, Failure>) async -> Result<Success.Wrapped, Failure> {
 		switch self {
 		case let .success(value):
