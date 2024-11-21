@@ -6,6 +6,7 @@ public protocol Nullable {
 	var wrapped: Wrapped? { get }
 }
 
+// MARK: -
 extension Optional: Nullable {
 	public var wrapped: Wrapped? { self }
 }
