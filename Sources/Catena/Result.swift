@@ -33,7 +33,7 @@ public extension Result {
 }
 
 public extension Result where Success: Nullable {
-	func mapNil(_ transform: () async -> Success.Wrapped) async -> Result<Success.Wrapped, Failure> {
+	func replaceNil(_ transform: () async -> Success.Wrapped) async -> Result<Success.Wrapped, Failure> {
 		switch self {
 		case let .success(value):
 			if let wrapped = value.wrapped {
@@ -46,7 +46,7 @@ public extension Result where Success: Nullable {
 		}
 	}
 
-	func flatMapNil(_ transform: () async -> Result<Success.Wrapped, Failure>) async -> Result<Success.Wrapped, Failure> {
+	func replaceNil(_ transform: () async -> Result<Success.Wrapped, Failure>) async -> Result<Success.Wrapped, Failure> {
 		switch self {
 		case let .success(value):
 			if let wrapped = value.wrapped {
