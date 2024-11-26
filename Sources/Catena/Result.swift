@@ -5,21 +5,15 @@ public protocol ResultProviding {
 
 	typealias Results<Resource> = Result<[Resource], Error>
 	typealias SingleResult<Resource> = Result<Resource, Error>
-	typealias NoResult = Result<Void, Error>
+	typealias EmptyResult = Result<Void, Error>
+	typealias ImpossibleResult = Result<Never, Error>
 }
 
 // MARK: -
 public extension Result {
-	func `try`(_ action: (Success) async -> Void) async throws {
+	func map<NewSuccess>(_ transform: (Success) async throws -> NewSuccess) async rethrows -> Result<NewSuccess, Failure> {
 		switch self {
-		case let .success(value): await action(value)
-		case let .failure(error): throw error
-		}
-	}
-
-	func map<NewSuccess>(_ transform: (Success) async -> NewSuccess) async -> Result<NewSuccess, Failure> {
-		switch self {
-		case let .success(value): await .success(transform(value))
+		case let .success(value): try await .success(transform(value))
 		case let .failure(error): .failure(error)
 		}
 	}
@@ -28,6 +22,17 @@ public extension Result {
 		switch self {
 		case let .success(value): await transform(value)
 		case let .failure(error): .failure(error)
+		}
+	}
+
+	@discardableResult
+	func tap(_ action: (Success) async -> Void) async throws -> Self {
+		switch self {
+		case let .success(value):
+			await action(value)
+			return self
+		case let .failure(error):
+			throw error
 		}
 	}
 }
