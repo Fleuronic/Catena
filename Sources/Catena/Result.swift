@@ -26,7 +26,7 @@ public extension Result {
 	}
 
 	@discardableResult
-	func tap(_ action: (Success) async -> Void) async throws -> Self {
+	func then(_ action: (Success) async -> Void) async throws -> Self {
 		switch self {
 		case let .success(value):
 			await action(value)
