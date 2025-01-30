@@ -3,13 +3,13 @@
 import struct Identity.Identifier
 import protocol Identity.Identifiable
 
-public protocol Identifying<Model> {
-	associatedtype Model: Identifiable
+public protocol Identifying<T> {
+	associatedtype T: Identifiable
 }
 
 // MARK: -
 extension Identifier: Catena.Identifying {
-	public typealias Model = Value
+	public typealias T = Value
 }
 
 // MARK: -
@@ -28,4 +28,9 @@ public struct IDListFields<Model: Identifiable & Sendable>: Fields, Sendable whe
 	@Sendable public init(ids: [Model.ID]) {
 		self.ids = ids
 	}
+}
+
+// MARK: -
+extension Array: Identifying where Element: Identifying {
+	public typealias T = Element.T
 }
