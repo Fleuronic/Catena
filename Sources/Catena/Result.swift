@@ -5,8 +5,10 @@ public protocol ResultProviding {
 
 	typealias Results<Resource> = Result<[Resource], Error>
 	typealias SingleResult<Resource> = Result<Resource, Error>
+	typealias SuccessResult = Result<Bool, Error>
 	typealias EmptyResult = Result<Void, Error>
-	typealias ImpossibleResult = Result<Never, Error>
+	typealias ImpossibleResult<Resource> = Result<ImpossibleFields<Resource>, Error>
+	typealias ImpossibleResults<Resource> = Result<[ImpossibleFields<Resource>], Error>
 }
 
 // MARK: -
