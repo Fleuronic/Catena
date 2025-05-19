@@ -17,7 +17,7 @@ let package = Package(
 			targets: ["Catena"]
 		)
 	],
-	dependencies: [.package(url: "https://github.com/Fleuronic/Identity", branch: "master")],
+	dependencies: [.package(url: "https://github.com/jordanekay/Identity", branch: "master")],
 	targets: [
 		.target(
 			name: "Catena",
