@@ -8,7 +8,7 @@ public protocol Identifying<T> {
 }
 
 // MARK: -
-extension Identifier: Catena.Identifying {
+extension Identifier: Identifying {
 	public typealias T = Value
 }
 

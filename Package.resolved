@@ -1,14 +1,15 @@
 {
+  "originHash" : "27022da8e146e10e99eafb0b03f8f2853d1a62f9248795b813921cd90a03492b",
   "pins" : [
     {
       "identity" : "identity",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Fleuronic/Identity",
+      "location" : "https://github.com/jordanekay/Identity",
       "state" : {
         "branch" : "master",
-        "revision" : "511c8584d7c0bed3da607156a4d643fd44ca4368"
+        "revision" : "8764a54c8e5ef0d14f3dc2ec5c10223ed0411a4d"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

@@ -39,6 +39,7 @@ public extension Result {
 	}
 }
 
+// MARK: -
 public extension Result where Success: Nullable {
 	func replaceNil(_ transform: () async -> Success.Wrapped) async -> Result<Success.Wrapped, Failure> {
 		switch self {
