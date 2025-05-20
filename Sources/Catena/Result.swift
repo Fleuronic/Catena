@@ -13,7 +13,7 @@ public protocol ResultProviding {
 
 // MARK: -
 public extension Result {
-	func map<NewSuccess>(_ transform: (Success) async throws -> NewSuccess) async rethrows -> Result<NewSuccess, Failure> {
+	func asyncMap<NewSuccess>(_ transform: (Success) async throws -> NewSuccess) async rethrows -> Result<NewSuccess, Failure> {
 		switch self {
 		case let .success(value): try await .success(transform(value))
 		case let .failure(error): .failure(error)
