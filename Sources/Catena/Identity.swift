@@ -3,13 +3,13 @@
 import struct Identity.Identifier
 import protocol Identity.Identifiable
 
-public protocol Identifying<T> {
-	associatedtype T: Identifiable
+public protocol Identifying<Identified> {
+	associatedtype Identified: Identifiable
 }
 
 // MARK: -
 extension Identifier: Identifying {
-	public typealias T = Value
+	public typealias Identified = Value
 }
 
 // MARK: -
@@ -32,5 +32,5 @@ public struct IDListFields<Model: Identifiable & Sendable>: Fields, Sendable whe
 
 // MARK: -
 extension Array: Identifying where Element: Identifying {
-	public typealias T = Element.T
+	public typealias Identified = Element.Identified
 }
