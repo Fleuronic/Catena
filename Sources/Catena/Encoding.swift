@@ -1,9 +1,4 @@
-//
-//  File.swift
-//  Catena
-//
-//  Created by Jordan Kay on 5/23/25.
-//
+// Copyright © Fleuronic LLC. All rights reserved.
 
 import Foundation
 

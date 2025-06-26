@@ -1,7 +1,6 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-import struct Identity.Identifier
-import protocol Identity.Identifiable
+import Identity
 
 public protocol Identifying<Identified> {
 	associatedtype Identified: Identifiable

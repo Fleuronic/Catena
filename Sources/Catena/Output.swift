@@ -16,7 +16,7 @@ public extension Output {
 extension Result: Output {}
 
 extension Result where Success: Sendable {
-	// MARK: WorkerOutput
+	// MARK: Output
 	public var results: Results {
 		.init { continuation in
 			continuation.yield(self)

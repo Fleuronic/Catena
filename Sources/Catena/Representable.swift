@@ -1,6 +1,6 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-import protocol Identity.Identifiable
+import Identity
 
 public protocol Representable<Value, IdentifiedValue>: Valued {
 	associatedtype IdentifiedValue: Identifiable
