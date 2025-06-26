@@ -1,6 +1,6 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
-public protocol Output<Success> {
+public protocol Output<Success>: Sendable {
 	associatedtype Success
 	associatedtype Failure: Error
 

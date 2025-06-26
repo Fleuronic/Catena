@@ -2,7 +2,7 @@
 
 import Foundation
 
-public protocol StringEncodable: CustomStringConvertible {
+public protocol StringEncodable: CustomStringConvertible, Sendable {
 	static func encode(with string: String) -> Self
 }
 
