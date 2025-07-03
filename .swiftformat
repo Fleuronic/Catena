@@ -1,9 +1,12 @@
 --disable all
+--swiftversion 6
+--languagemode 6
 
 --enable indent
 --enable isEmpty
 
 --indent tab
 --tabwidth 4
+--ifdef no-indent
 --stripunusedargs closure-only
 --trimwhitespace nonblank-lines
