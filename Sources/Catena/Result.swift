@@ -28,14 +28,12 @@ public extension Result {
 	}
 
 	@discardableResult
-	func then(_ action: (Success) async -> Void) async throws -> Self {
-		switch self {
-		case let .success(value):
+	func then(_ action: (Success) async -> Void) async -> Self {
+		if case let .success(value) = self {
 			await action(value)
-			return self
-		case let .failure(error):
-			throw error
 		}
+
+		return self
 	}
 }
 
