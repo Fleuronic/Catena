@@ -1,6 +1,7 @@
 // Copyright © Fleuronic LLC. All rights reserved.
 
 import Identity
+import Foundation
 
 public protocol Identifying<Identified> {
 	associatedtype Identified: Identifiable
@@ -12,11 +13,25 @@ extension Identifier: Identifying {
 }
 
 // MARK: -
+public extension Identifier where Value.RawIdentifier == UUID {
+	static var null: Self {
+		.init(rawValue: .init(uuidString: "00000000-0000-0000-0000-000000000000")!)
+	}
+}
+
+// MARK: -
 public struct IDFields<Model: Identifiable & Sendable>: Fields, Hashable where Model.ID: Hashable & Sendable, Model.RawIdentifier: Sendable {
 	public let id: Model.ID
 
 	@Sendable public init(id: Model.ID) {
 		self.id = id
+	}
+}
+
+// MARK: -
+public extension IDFields where Model.RawIdentifier == UUID {
+	static var null: Self {
+		.init(id: .null)
 	}
 }
 
