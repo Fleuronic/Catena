@@ -3,6 +3,11 @@
 import Identity
 import Foundation
 
+public extension Identifiable {
+	typealias InvalidID = EmptyIdentifier<Self>
+}
+
+// MARK: -
 public protocol Identifying<Identified> {
 	associatedtype Identified: Identifiable
 }
@@ -17,7 +22,17 @@ public extension Identifier where Value.RawIdentifier == UUID {
 	static var null: Self {
 		.init(rawValue: .init(uuidString: "00000000-0000-0000-0000-000000000000")!)
 	}
+
+	static var random: Self {
+		.init(rawValue: .init())
+	}
 }
+
+// MARK: -
+public enum EmptyIdentifier<Identified: Identifiable>: Identifying {}
+
+// MARK: -
+public enum EmptyIdentifiers<Identified: Identifiable>: Identifying {}
 
 // MARK: -
 public struct IDFields<Model: Identifiable & Sendable>: Fields, Hashable where Model.ID: Hashable & Sendable, Model.RawIdentifier: Sendable {

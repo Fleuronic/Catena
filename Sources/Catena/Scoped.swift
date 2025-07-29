@@ -5,8 +5,8 @@ public protocol Scoped<Fields> {
 }
 
 // MARK: -
-extension Result: Scoped where Success: Scoped {
-	public typealias Fields = Success.Fields
+extension Optional: Scoped where Wrapped: Scoped {
+	public typealias Fields = Wrapped.Fields
 }
 
 // MARK: -
@@ -15,6 +15,7 @@ extension Array: Scoped where Element: Scoped {
 }
 
 // MARK: -
-extension Optional: Scoped where Wrapped: Scoped {
-	public typealias Fields = Wrapped.Fields
+extension Result: Scoped where Success: Scoped {
+	public typealias Fields = Success.Fields
 }
+
