@@ -22,10 +22,6 @@ public extension Identifier where Value.RawIdentifier == UUID {
 	static var null: Self {
 		.init(rawValue: .init(uuidString: "00000000-0000-0000-0000-000000000000")!)
 	}
-
-	static var random: Self {
-		.init(rawValue: .init())
-	}
 }
 
 // MARK: -
