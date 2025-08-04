@@ -56,6 +56,11 @@ public struct IDListFields<Model: Identifiable & Sendable>: Fields, Sendable whe
 }
 
 // MARK: -
+extension Result: Identifying where Success: Identifying {
+	public typealias Identified = Success.Identified
+}
+
+// MARK: -
 extension Array: Identifying where Element: Identifying {
 	public typealias Identified = Element.Identified
 }
