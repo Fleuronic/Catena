@@ -35,6 +35,19 @@ public extension Result {
 	}
 }
 
+public extension Result where Success: Sendable {
+	func afterward(_ action: @Sendable @escaping (Success) async -> Void, completion: @Sendable @escaping () -> Void = {}) -> Self {
+		if case let .success(value) = self {
+			Task { @Sendable in 
+				await action(value) 
+				completion()
+			}
+		}
+
+		return self
+	}
+}
+
 // MARK: -
 public extension Result where Success: Nullable {
 	func replaceNil(_ transform: () async -> Success.Wrapped) async -> Result<Success.Wrapped, Failure> {
