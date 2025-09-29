@@ -6,18 +6,19 @@ public protocol IntEncodable: CustomStringConvertible, Sendable {
 	static func encode(with value: Int) -> Self
 }
 
+// MARK: -
 public protocol StringEncodable: CustomStringConvertible, Sendable {
 	static func encode(with value: String) -> Self
 }
 
 // MARK: -
-extension String: StringEncodable {
-	public static func encode(with value: String) -> Self { value }
+extension Int: IntEncodable {
+	public static func encode(with value: Int) -> Self { value }
 }
 
 // MARK: -
-extension Int: IntEncodable {
-	public static func encode(with value: Int) -> Self { value }
+extension String: StringEncodable {
+	public static func encode(with value: String) -> Self { value }
 }
 
 // MARK: -
