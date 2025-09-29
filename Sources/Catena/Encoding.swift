@@ -3,9 +3,9 @@
 import Foundation
 
 public protocol ValueEncodable: CustomStringConvertible, Sendable {
-	associatedtype Value
+	associatedtype EncodedValue
 
-	static func encode(with value: Value) -> Self
+	static func encode(with value: EncodedValue) -> Self
 }
 
 // MARK: -
