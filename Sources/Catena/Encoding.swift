@@ -2,27 +2,23 @@
 
 import Foundation
 
-public protocol StringEncodable: CustomStringConvertible, Sendable {
-	static func encode(with string: String) -> Self
+public protocol ValueEncodable: CustomStringConvertible, Sendable {
+	associatedtype Value
+
+	static func encode(with value: Value) -> Self
 }
 
 // MARK: -
-extension String: StringEncodable {
-	public static func encode(with string: String) -> Self {
-		string
-	}
+extension String: ValueEncodable {
+	public static func encode(with value: String) -> Self { value }
 }
 
 // MARK: -
-extension Int: StringEncodable {
-	public static func encode(with string: String) -> Self {
-		.init(string)!
-	}
+extension Int: ValueEncodable {
+	public static func encode(with value: Int) -> Self { value }
 }
 
 // MARK: -
-extension UUID: StringEncodable {
-	public static func encode(with string: String) -> Self {
-		.init(uuidString: string)!
-	}
+extension UUID: ValueEncodable {
+	public static func encode(with value: String) -> Self { .init(uuidString: value)! }
 }
