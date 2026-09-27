@@ -12,9 +12,4 @@ public extension Model {
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(id)
 	}
-
-	// MARK: Equatable
-	static func ==(lhs: Self, rhs: Self) -> Bool {
-		lhs.id == rhs.id
-	}
 }
